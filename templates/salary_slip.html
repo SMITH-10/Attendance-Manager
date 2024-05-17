@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Slip</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 4CAF50(0, 0, 0, 0.1);
+        }
+        h1, h2, h3, p {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Salary Slip for {{ name }}</h1>
+        <p>Date: {{ date }}</p>
+        <p>Employee: {{ name }}</p>
+        <p>Firm name: {{ firm_name }}</p>
+        <h3>{{ month }}</h3>
+        <table>
+            <tr>
+                <th>Per Day Salary</th>
+                <td>{{ per_day_salary }}</td>
+            </tr>
+            <tr>
+                <th>Bonus</th>
+                <td>{{ bonus }}</td>
+            </tr>
+            <tr>
+                <th>Advance</th>
+                <td>{{ advance }}</td>
+            </tr>
+            <tr>
+                <th>Present Days</th>
+                <td>{{ present_days }}</td>
+            </tr>
+            <tr>
+                <th>Total Salary</th>
+                <td>{{ total_salary }}</td>
+            </tr>
+        </table>
+        
+    </div>
+</body>
+</html>

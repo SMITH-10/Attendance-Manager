@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Attendance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        .button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .form-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .form-container.active {
+            display: block;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("mark-attendance-button").addEventListener("click", function () {
+                document.getElementById("mark-attendance-form").classList.toggle("active");
+                document.getElementById("calculate-salary-form").classList.remove("active");
+            });
+            document.getElementById("calculate-salary-button").addEventListener("click", function () {
+                document.getElementById("calculate-salary-form").classList.toggle("active");
+                document.getElementById("mark-attendance-form").classList.remove("active");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Office Attendance</h1>
+        <div id="message">{{ message }}</div>
+        <a href="#" id="mark-attendance-button" class="button">Mark Attendance</a>
+        <a href="#" id="calculate-salary-button" class="button">Calculate Salary</a>
+        
+        <div id="mark-attendance-form" class="form-container">
+            <h2>Mark Attendance</h2>
+            <form action="/mark_attendance" method="post">
+                <label for="employee_name">Employee Name:</label>
+                <select name="employee_name">
+                    {% for name in sheet_names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="date">Date:</label>
+                <input type="date" name="date" value="{{ today }}">
+                <label for="status">Status:</label>
+                <select name="status">
+                    <option value="1">Present</option>
+                    <option value="0">Absent</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div id="calculate-salary-form" class="form-container">
+            <h2>Calculate Salary</h2>
+            <form action="/calculate_salary" method="post">
+                <label for="employee_name">Employee Name:</label>
+                <select name="employee_name">
+                    {% for name in sheet_names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="month">Month:</label>
+                <select name="month">
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+                <label for="per_day_salary">Per Day Salary:</label>
+                <input type="number" name="per_day_salary" required>
+                <label for="bonus">Bonus:</label>
+                <input type="number" name="bonus" required>
+                <label for="advance_amount">Advance Amount:</label>
+                <input type="number" name="advance_amount">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        
+        {% if slip_link %}
+        <div>
+            <a href="{{ slip_link }}" class="button">Download Salary Slip</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
